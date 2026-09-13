@@ -1,0 +1,88 @@
+{
+  "locked": true,
+  "timestamp": "2026-09-12T23:40:17.012495+00:00",
+  "contentHash": "sha256:bb310bc6028a45cd249846d0280bcd7e1db4aa3e1d3da7ed04c276e7bc9277ec",
+  "approvedBy": "user",
+  "project": {
+    "name": "Al Hasad News Agency",
+    "shortName": "Al Hasad News",
+    "objective": "Build a complete, high-end Arabic news website with full RTL support, responsive mobile design, homepage, section pages, article pages, and admin panel for managing articles, categories, and images.",
+    "users": [
+      "Arabic-speaking news readers (25-55)",
+      "Content editors/admin staff",
+      "News agency stakeholders"
+    ],
+    "scope": "Homepage, 5 section pages (Local/International News, Sports, Women & Society, Accidents), article pages, admin panel with CRUD for articles/categories/images, search, responsive RTL design",
+    "outOfScope": [
+      "User comments",
+      "Newsletter system",
+      "Video hosting",
+      "Multi-language",
+      "Analytics dashboard",
+      "Push notifications",
+      "Reader accounts",
+      "Mobile apps"
+    ],
+    "functionalRequirements": [
+      "FR-001: Full RTL Arabic layout",
+      "FR-002: Homepage with breaking news, featured hero, latest grid",
+      "FR-003: 5 section pages",
+      "FR-004: Individual article pages",
+      "FR-005: Admin panel with auth",
+      "FR-006: Article CRUD with rich text, images, categories",
+      "FR-007: Category management",
+      "FR-008: Image/media library",
+      "FR-009: Responsive design (1920×1080, 390×844)",
+      "FR-010: Search",
+      "FR-011: SEO optimization",
+      "FR-012: High-quality editorial images",
+      "FR-013: Publish/draft/schedule status",
+      "FR-014: Breaking news flag",
+      "FR-015: Related articles"
+    ],
+    "architecture": {
+      "overview": "Full-stack Next.js 15 with App Router, TypeScript, Tailwind CSS 4. SSR for news pages, SPA admin panel. SQLite for dev, Cloudflare D1 for prod.",
+      "stack": "Next.js 15, TypeScript, Tailwind CSS 4, Drizzle ORM, better-sqlite3/D1, TipTap, JWT auth",
+      "dataModel": "Articles, Categories, Images, Admin Users tables",
+      "integrations": [
+        "Unsplash/Pexels for images",
+        "Google Fonts (IBM Plex Arabic)"
+      ]
+    },
+    "dataSecurity": {
+      "requirements": [
+        "JWT auth",
+        "Zod validation",
+        "CSRF protection",
+        "Rate limiting",
+        "bcrypt passwords",
+        "Drizzle parameterized queries"
+      ],
+      "compliance": []
+    },
+    "designDirection": {
+      "tone": "Professional, credible, modern Arabic news",
+      "visualStyle": "High-end editorial — clean typography, strong hierarchy, sophisticated palette, generous spacing",
+      "responsivePriorities": "Mobile-first with progressive enhancement"
+    },
+    "assumptions": [
+      "Arabic primary language, no bilingual v1",
+      "Trusted staff, no role tiers v1",
+      "Images from licensed stock providers",
+      "Cloudflare hosting",
+      "Breaking news manually toggled",
+      "Greenfield build, no existing CMS",
+      "Single admin user v1"
+    ],
+    "successCriteria": [
+      "SC-001: All 5 section pages render RTL at both breakpoints",
+      "SC-002: Admin full CRUD without technical knowledge",
+      "SC-003: Homepage loads within performance budget",
+      "SC-004: Article pages display correctly in RTL",
+      "SC-005: Mobile responsive, no horizontal scroll, tap targets ≥44px",
+      "SC-006: Zero console errors",
+      "SC-007: Lighthouse performance ≥85, accessibility ≥90"
+    ],
+    "deploymentTarget": "Cloudflare Workers + D1 (staging)"
+  }
+}

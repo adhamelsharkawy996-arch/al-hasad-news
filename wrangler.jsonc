@@ -1,0 +1,10 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "al-hasad-news",
+  "compatibility_date": "2026-09-11",
+  "main": ".vercel/output/static/_next/server/app/page/index.html",
+  "assets": {
+    "directory": ".vercel/output/static",
+    "not_found_handling": "single-page-application"
+  }
+}
