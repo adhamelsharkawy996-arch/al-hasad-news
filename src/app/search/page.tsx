@@ -1,6 +1,7 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useSearchParams } from 'next/navigation';
 import Header from '@/components/ui/Header';
 import Footer from '@/components/ui/Footer';
 import ArticleCard from '@/components/ui/ArticleCard';
@@ -8,23 +9,38 @@ import { Search as SearchIcon } from 'lucide-react';
 import type { Article } from '@/lib/data';
 
 export default function SearchPage() {
-  const [query, setQuery] = useState('');
+  const searchParams = useSearchParams();
+  const [query, setQuery] = useState(searchParams.get('q') || '');
   const [results, setResults] = useState<Article[]>([]);
-  const [searched, setSearched] = useState(false);
+  const [searched, setSearched] = useState(!!searchParams.get('q'));
   const [loading, setLoading] = useState(false);
 
-  const handleSearch = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!query.trim()) return;
-    
+  useEffect(() => {
+    const q = searchParams.get('q');
+    if (q) {
+      setQuery(q);
+      performSearch(q);
+    }
+  }, [searchParams]);
+
+  const performSearch = async (q: string) => {
+    if (!q.trim()) return;
     setLoading(true);
-    const res = await fetch(`/api/search?q=${encodeURIComponent(query.trim())}`);
+    const res = await fetch(`/api/search?q=${encodeURIComponent(q.trim())}`);
     if (res.ok) {
       const data = await res.json();
       setResults(data);
       setSearched(true);
     }
     setLoading(false);
+  };
+
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (query.trim()) {
+      window.history.pushState({}, '', `/search?q=${encodeURIComponent(query.trim())}`);
+      performSearch(query.trim());
+    }
   };
 
   return (
@@ -42,8 +58,9 @@ export default function SearchPage() {
                 onChange={e => setQuery(e.target.value)}
                 placeholder="ابحث هنا..."
                 className="w-full px-6 py-4 rounded-xl text-gray-800 text-lg focus:outline-none focus:ring-4 focus:ring-[var(--color-accent)]/50"
+                aria-label="كلمة البحث"
               />
-              <button type="submit" className="absolute left-2 top-1/2 -translate-y-1/2 bg-[var(--color-accent)] text-white p-2 rounded-lg hover:bg-[var(--color-accent)]/80 transition-colors">
+              <button type="submit" className="absolute left-2 top-1/2 -translate-y-1/2 bg-[var(--color-accent)] text-white p-2 rounded-lg hover:bg-[var(--color-accent)]/80 transition-colors" aria-label="بحث">
                 <SearchIcon size={20} />
               </button>
             </form>

@@ -5,7 +5,7 @@ export default function Footer() {
     <footer className="bg-[var(--color-primary)] text-white mt-auto">
       <div className="max-w-7xl mx-auto px-4 py-12 grid grid-cols-1 md:grid-cols-4 gap-8">
         <div>
-          <h3 className="text-lg font-bold mb-4 text-[var(--color-accent)]">وكالة أنباء الحسد</h3>
+          <h3 className="text-lg font-bold mb-4 text-[var(--color-accent)]">وكالة الحصاد نيوز</h3>
           <p className="text-sm text-white/70 leading-relaxed">
             وكالة أنباء مستقلة تقدم أخباراً دقيقة وموثوقة في مختلف المجالات
           </p>
@@ -37,7 +37,7 @@ export default function Footer() {
         </div>
       </div>
       <div className="border-t border-white/10 py-4 text-center text-sm text-white/50">
-        <p>© {new Date().getFullYear()} وكالة أنباء الحسد. جميع الحقوق محفوظة.</p>
+        <p>© {new Date().getFullYear()} وكالة الحصاد نيوز. جميع الحقوق محفوظة.</p>
       </div>
     </footer>
   );
