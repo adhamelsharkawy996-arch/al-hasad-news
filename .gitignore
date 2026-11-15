@@ -19,3 +19,4 @@ uploads/
 public/uploads/*
 !public/uploads/.gitkeep
 node_modules/
+*.tsbuildinfo

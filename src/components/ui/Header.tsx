@@ -22,7 +22,6 @@ export default function Header() {
       <div className="bg-[var(--color-secondary)] py-2 text-sm border-b border-white/10">
         <div className="max-w-7xl mx-auto px-4 flex justify-between items-center">
           <span>{new Date().toLocaleDateString('ar-EG', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</span>
-          <Link href="/admin" className="hover:text-[var(--color-accent)] transition-colors">لوحة التحكم</Link>
         </div>
       </div>
 
@@ -33,7 +32,7 @@ export default function Header() {
             ح
           </div>
           <div>
-            <h1 className="text-xl font-bold font-[var(--font-display)]">وكالة أنباء الحسد</h1>
+            <h1 className="text-xl font-bold font-[var(--font-display)]">وكالة الحصاد نيوز</h1>
             <p className="text-xs text-white/60">Al Hasad News Agency</p>
           </div>
         </Link>

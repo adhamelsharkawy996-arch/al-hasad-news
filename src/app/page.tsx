@@ -6,10 +6,16 @@ import ArticleCard from '@/components/ui/ArticleCard';
 import { getBreakingArticles, getLatestArticles, getAllCategories, getArticlesByCategory } from '@/lib/data';
 import { Clock, TrendingUp, Globe, Dumbbell, Users, AlertTriangle } from 'lucide-react';
 
+const SECTION_ORDER = ['local-news', 'international-news', 'sports', 'women-society', 'accidents'];
+
 export default function HomePage() {
   const breakingNews = getBreakingArticles();
   const latestArticles = getLatestArticles(8);
-  const categories = getAllCategories();
+  const categories = getAllCategories().sort((a, b) => {
+    const aIdx = SECTION_ORDER.indexOf(a.slug);
+    const bIdx = SECTION_ORDER.indexOf(b.slug);
+    return aIdx - bIdx;
+  });
   const topArticle = latestArticles[0];
   const otherArticles = latestArticles.slice(1);
 
@@ -32,9 +38,9 @@ export default function HomePage() {
 
       <main className="flex-1">
         {/* Featured Hero Section */}
-        <section className="py-8 bg-white">
+        <section className="py-6 bg-white">
           <div className="max-w-7xl mx-auto px-4">
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
               {/* Main Featured */}
               <div className="lg:col-span-2">
                 {topArticle && <ArticleCard article={topArticle} variant="featured" />}
@@ -54,15 +60,15 @@ export default function HomePage() {
         </section>
 
         {/* Category Sections */}
-        {categories.map(category => {
+        {categories.map((category, idx) => {
           const catArticles = getArticlesByCategory(category.id, { limit: 4 });
           if (catArticles.length === 0) return null;
           const Icon = sectionIcons[category.slug] || Clock;
           
           return (
-            <section key={category.id} className={`py-8 ${category.sortOrder % 2 === 0 ? 'bg-white' : 'bg-gray-50'}`}>
+            <section key={category.id} className={`py-6 ${idx % 2 === 0 ? 'bg-white' : 'bg-gray-50'}`}>
               <div className="max-w-7xl mx-auto px-4">
-                <div className="flex items-center justify-between mb-6">
+                <div className="flex items-center justify-between mb-4">
                   <div className="flex items-center gap-3">
                     <div className="w-10 h-10 bg-[var(--color-accent)] rounded-lg flex items-center justify-center text-white">
                       <Icon size={20} />

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, use } from 'react';
 import Header from '@/components/ui/Header';
 import Footer from '@/components/ui/Footer';
 import { Save } from 'lucide-react';
@@ -19,16 +19,17 @@ interface Article {
   publishedAt: string;
 }
 
-export default function EditArticlePage({ params }: { params: { id: string } }) {
+export default function EditArticlePage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = use(params);
   const [article, setArticle] = useState<Article | null>(null);
   const [saving, setSaving] = useState(false);
   const [saved, setSaved] = useState(false);
 
   useEffect(() => {
-    fetch(`/api/articles/${params.id}`)
+    fetch(`/api/articles/${id}`)
       .then(res => res.json())
       .then(setArticle);
-  }, [params.id]);
+  }, [id]);
 
   const handleSave = async () => {
     if (!article) return;
