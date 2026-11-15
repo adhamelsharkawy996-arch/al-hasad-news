@@ -6,8 +6,8 @@ import ArticleCard from '@/components/ui/ArticleCard';
 
 export const dynamic = 'force-dynamic';
 
-export default function SectionPage({ params }: { params: { slug: string } }) {
-  const { slug } = params;
+export default async function SectionPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
   
   if (!slug) {
     return <div className="p-8 text-center text-red-500">Error: No slug provided</div>;

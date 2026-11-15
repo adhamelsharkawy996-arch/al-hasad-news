@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Header from '@/components/ui/Header';
 import Footer from '@/components/ui/Footer';
@@ -8,7 +8,7 @@ import ArticleCard from '@/components/ui/ArticleCard';
 import { Search as SearchIcon } from 'lucide-react';
 import type { Article } from '@/lib/data';
 
-export default function SearchPage() {
+function SearchContent() {
   const searchParams = useSearchParams();
   const [query, setQuery] = useState(searchParams.get('q') || '');
   const [results, setResults] = useState<Article[]>([]);
@@ -99,5 +99,13 @@ export default function SearchPage() {
 
       <Footer />
     </>
+  );
+}
+
+export default function SearchPage() {
+  return (
+    <Suspense>
+      <SearchContent />
+    </Suspense>
   );
 }
